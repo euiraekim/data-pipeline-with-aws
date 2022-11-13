@@ -1,4 +1,3 @@
-#cloud-boothook
 #!/bin/bash
 
 # 자바 다운로드
@@ -14,7 +13,7 @@ tar -xzf kafka_2.12-2.6.2.tgz
 mv kafka_2.12-2.6.2 kafka
 
 # 설정 추가
-echo security.protocol=PLAINTEXT > ~/kafka/bin/client.properties
+sudo echo security.protocol=PLAINTEXT > /kafka/bin/client.properties
 
 # git 설치
 sudo yum install git -y
