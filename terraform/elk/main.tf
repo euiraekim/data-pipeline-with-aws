@@ -16,10 +16,10 @@ data "aws_vpc" "msk_vpc" {
   }
 }
 
-data "aws_route_table" "msk_route_table" {
+data "aws_route_tables" "msk_route_table" {
   filter {
     name = "tag:Name"
-    values = ["msk-private-route-table"]
+    values = ["msk-private-route-table-*"]
   }
 }
 
@@ -31,6 +31,6 @@ module "vpc_peering" {
   requestor_route_table_ids = module.vpc.private_route_table_ids
   acceptor_vpc_id = data.aws_vpc.msk_vpc.id
   acceptor_vpc_cidr = data.aws_vpc.msk_vpc.cidr_block
-  acceptor_route_table_ids = data.aws_route_table.msk_route_table.id
+  acceptor_route_table_ids = data.aws_route_tables.msk_route_table.ids
 
 }

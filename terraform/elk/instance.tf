@@ -21,7 +21,7 @@ resource "aws_security_group" "elk_sg" {
   }
 }
 
-resource "aws_instance" "elk-ec2" {
+resource "aws_instance" "bastion" {
   ami                         = "ami-0c76973fbe0ee100c"
   instance_type               = "t2.small"
   key_name                    = "keykey"
@@ -42,7 +42,32 @@ resource "aws_instance" "elk-ec2" {
   }
 
   tags = {
-    Name    = "elk-ec2"
+    Name    = "elk-bastion"
+  }
+}
+
+resource "aws_instance" "private" {
+  ami                         = "ami-0c76973fbe0ee100c"
+  instance_type               = "t2.small"
+  key_name                    = "keykey"
+
+  user_data = file("${path.module}/user_data.sh")
+
+  subnet_id      = module.vpc.private_subnet_ids[0]
+  vpc_security_group_ids      = [aws_security_group.elk_sg.id]
+
+  root_block_device {
+    delete_on_termination = true
+    encrypted             = false
+    tags = {
+      Name    = "elk-instance-volume"
+    }
+    volume_size = 20
+    volume_type = "gp3"
+  }
+
+  tags = {
+    Name    = "elk-private"
   }
 }
 
