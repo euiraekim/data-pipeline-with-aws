@@ -41,6 +41,35 @@ resource "aws_internet_gateway" "default" {
   }
 }
 
+resource "aws_eip" "nat" {
+  count = var.use_nat ? length(var.availability_zones) : 0
+  vpc = true
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = {
+    Name = "${var.name}-nat-eip"
+  }
+}
+
+resource "aws_nat_gateway" "nat" {
+  count = var.use_nat ? length(var.availability_zones) : 0
+  
+  allocation_id = element(aws_eip.nat.*.id, count.index)
+
+  subnet_id = element(aws_subnet.public.*.id, count.index)
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = {
+    Name = "${var.name}-nat-gateway-${count.index}"
+  }
+}
+
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.default.id
 
@@ -75,4 +104,11 @@ resource "aws_route_table_association" "private" {
   count = length(var.availability_zones)
   subnet_id = element(aws_subnet.private.*.id, count.index)
   route_table_id = element(aws_route_table.private.*.id, count.index)
+}
+
+resource "aws_route" "private_nat" {
+  count = var.use_nat ? length(var.availability_zones) : 0
+  route_table_id = element(aws_route_table.private.*.id, count.index)
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id = element(aws_nat_gateway.nat.*.id, count.index)
 }
