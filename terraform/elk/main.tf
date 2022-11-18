@@ -32,5 +32,24 @@ module "vpc_peering" {
   acceptor_vpc_id = data.aws_vpc.msk_vpc.id
   acceptor_vpc_cidr = data.aws_vpc.msk_vpc.cidr_block
   acceptor_route_table_ids = data.aws_route_tables.msk_route_table.ids
+}
 
+
+module "logstash_eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "18.26.6"
+
+  cluster_name    = "logstash-eks"
+  cluster_version = "1.22"
+  vpc_id          = module.vpc.vpc_id
+  subnet_ids      = module.vpc.private_subnet_ids
+
+  eks_managed_node_groups = {
+    default_node_group = {
+      min_size     = 2
+      max_size     = 2
+      desired_size = 2
+      instance_types = ["t3.small"]
+    }
+  }
 }
