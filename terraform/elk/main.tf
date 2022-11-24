@@ -52,6 +52,18 @@ module "logstash_eks" {
       instance_types = ["t3.small"]
     }
   }
+
+  node_security_group_additional_rules = {
+    msk_egress = {
+      description              = "logstash to msk"
+      protocol                 = "tcp"
+      from_port                = 9092
+      to_port                  = 9094
+      type                     = "egress"
+      cidr_blocks = ["0.0.0.0/0"]
+      
+    }
+  }
 }
 
 
