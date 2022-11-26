@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logstash-configmap
+  labels:
+    task: collect-order
+    k8s-app: logstash
+data:
+  logstash.yml: |
+    http.host: "127.0.0.1"
+    path.config: /usr/share/logstash/pipeline
+  user-logstash.conf:
+    input {
+      kafka {
+        bootstrap_servers => "b-2.mymskcluster.gaadu4.c2.kafka.ap-northeast-2.amazonaws.com:9092,b-1.mymskcluster.gaadu4.c2.kafka.ap-northeast-2.amazonaws.com:9092"
+        topics => "Order"
+        auto_offset_reset => "latest"
+        codec => "json"
+      }
+    }
+    output {
+      elasticsearch {
+        hosts => ["https://vpc-my-es-llwbkrowqzwpg6ukdibcpqkzua.ap-northeast-2.es.amazonaws.com:443"]
+        ssl => true
+        index => "order"
+        ilm_enabled => false
+      }
+    }
+  order-logstash.conf:
+    input {
+      kafka {
+        bootstrap_servers => "b-2.mymskcluster.gaadu4.c2.kafka.ap-northeast-2.amazonaws.com:9092,b-1.mymskcluster.gaadu4.c2.kafka.ap-northeast-2.amazonaws.com:9092"
+        topics => "Order"
+        auto_offset_reset => "latest"
+        codec => "json"
+      }
+    }
+    output {
+      elasticsearch {
+        hosts => ["https://vpc-my-es-llwbkrowqzwpg6ukdibcpqkzua.ap-northeast-2.es.amazonaws.com:443"]
+        ssl => true
+        index => "order"
+        ilm_enabled => false
+      }
+    }
