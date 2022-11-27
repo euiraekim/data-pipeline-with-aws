@@ -91,7 +91,7 @@ class DataGenerator():
             'order_id': self.order_number,
             'user_id': user_id,
             'product_id': random.randint(1, 1000),
-            'price': 500 * random.randint(1, 1000)
+            'price': 500 * random.randint(10, 400),
             'first_category': first_category,
             'second_category': second_category,
             'created_date': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
