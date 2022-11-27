@@ -12,27 +12,45 @@ data:
   user-logstash.conf:
     input {
       kafka {
-        bootstrap_servers => "b-2.mymskcluster.gaadu4.c2.kafka.ap-northeast-2.amazonaws.com:9092,b-1.mymskcluster.gaadu4.c2.kafka.ap-northeast-2.amazonaws.com:9092"
-        topics => "Order"
+        bootstrap_servers => "b-2.mymskcluster.3h5ocg.c2.kafka.ap-northeast-2.amazonaws.com:9092,b-1.mymskcluster.3h5ocg.c2.kafka.ap-northeast-2.amazonaws.com:9092"
+        topics => "User"
         auto_offset_reset => "latest"
         codec => "json"
+      }
+    }
+    filter {
+      date {
+        match => ["created_date", "yyyy-MM-dd HH:mm:ss"]
+      }
+      mutate {
+        split => {"email" => "@"}
+        add_field => {
+          "email_user" => "%{[email][0]}"
+          "email_domain" => "%{[email][1]}"
+        }
+        remove_field => "email"
       }
     }
     output {
       elasticsearch {
         hosts => ["https://vpc-my-es-llwbkrowqzwpg6ukdibcpqkzua.ap-northeast-2.es.amazonaws.com:443"]
         ssl => true
-        index => "order"
+        index => "user"
         ilm_enabled => false
       }
     }
   order-logstash.conf:
     input {
       kafka {
-        bootstrap_servers => "b-2.mymskcluster.gaadu4.c2.kafka.ap-northeast-2.amazonaws.com:9092,b-1.mymskcluster.gaadu4.c2.kafka.ap-northeast-2.amazonaws.com:9092"
+        bootstrap_servers => "b-2.mymskcluster.3h5ocg.c2.kafka.ap-northeast-2.amazonaws.com:9092,b-1.mymskcluster.3h5ocg.c2.kafka.ap-northeast-2.amazonaws.com:9092"
         topics => "Order"
         auto_offset_reset => "latest"
         codec => "json"
+      }
+    }
+    filter {
+      date {
+        match => ["created_date", "yyyy-MM-dd HH:mm:ss"]
       }
     }
     output {
