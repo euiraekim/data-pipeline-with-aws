@@ -19,11 +19,13 @@ resource "aws_mskconnect_connector" "msk-connect-s3" {
   connector_configuration = {
     "connector.class" = "io.confluent.connect.s3.S3SinkConnector"
     "s3.region": "ap-northeast-2"
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter"
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter"
+    "key.converter.schemas.enable": "false"
+    "value.converter.schemas.enable": "false"
     "format.class": "io.confluent.connect.s3.format.json.JsonFormat"
     "flush.size": "10"
     "schema.compatibility": "NONE"
-    "key.converter": "org.apache.kafka.connect.storage.StringConverter"
-    "value.converter": "org.apache.kafka.connect.storage.StringConverter"
     "topics": var.kafka_topics[count.index]
     "tasks.max": "2"
     "partitioner.class": "io.confluent.connect.storage.partitioner.TimeBasedPartitioner"
