@@ -1,0 +1,10 @@
+{"user_id":3,"price":14000,"product_id":782,"second_category":"Pencil","created_date":"2022-12-01 13:18:41","order_id":20,"first_category":"Skirt"}
+{"user_id":9,"price":188000,"product_id":108,"second_category":"Sling Back","created_date":"2022-12-01 13:18:43","order_id":22,"first_category":"Shoe"}
+{"user_id":10,"price":139000,"product_id":991,"second_category":"Shirt","created_date":"2022-12-01 13:19:45","order_id":1,"first_category":"Top"}
+{"user_id":8,"price":8000,"product_id":334,"second_category":"Blazer","created_date":"2022-12-01 13:19:46","order_id":2,"first_category":"Outerwear"}
+{"user_id":3,"price":197500,"product_id":766,"second_category":"Polo","created_date":"2022-12-01 13:19:55","order_id":4,"first_category":"Top"}
+{"user_id":14,"price":108000,"product_id":662,"second_category":"Marry Jane","created_date":"2022-12-01 13:20:02","order_id":8,"first_category":"Shoe"}
+{"user_id":10,"price":37000,"product_id":215,"second_category":"Wide leg","created_date":"2022-12-01 13:20:04","order_id":9,"first_category":"Bottom"}
+{"user_id":15,"price":158500,"product_id":158,"second_category":"Shirt","created_date":"2022-12-01 13:20:09","order_id":10,"first_category":"Top"}
+{"user_id":11,"price":69000,"product_id":477,"second_category":"Sneaker","created_date":"2022-12-01 13:20:11","order_id":11,"first_category":"Shoe"}
+{"user_id":23,"price":119500,"product_id":93,"second_category":"Blouse","created_date":"2022-12-01 13:20:14","order_id":12,"first_category":"Top"}
