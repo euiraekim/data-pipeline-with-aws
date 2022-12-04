@@ -1,6 +1,6 @@
 resource "aws_emr_cluster" "cluster" {
   name          = "emr-test-arn"
-  release_label = "emr-5.36.0"
+  release_label = "emr-6.6.0"
   applications  = ["Spark"]
 
   ec2_attributes {
