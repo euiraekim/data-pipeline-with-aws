@@ -5,7 +5,8 @@ create_user_table = """
         user_id INT NOT NULL,
         created_date DATETIME NOT NULL,
         address VARCHAR(50) NOT NULL,
-        email VARCHAR(50) NOT NULL,
+        email_user VARCHAR(50) NOT NULL,
+        email_domain VARCHAR(50) NOT NULL,
         gender VARCHAR(5) NOT NULL,
         name VARCHAR(30) NOT NULL,
         phone_number VARCHAR(30) NOT NULL

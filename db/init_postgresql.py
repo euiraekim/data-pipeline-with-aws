@@ -1,8 +1,8 @@
 from connection import get_postgresql_conn
 
 create_table_query = """
-    CREATE TABLE order_user (
-        order_id INT NOT NULL
+    CREATE TABLE sign_up_count (
+        test VARCHAR(50) NOT NULL
     )
 """
 
