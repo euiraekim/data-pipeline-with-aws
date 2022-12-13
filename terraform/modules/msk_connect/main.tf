@@ -24,7 +24,7 @@ resource "aws_mskconnect_connector" "msk-connect-s3" {
     "key.converter.schemas.enable": "false"
     "value.converter.schemas.enable": "false"
     "format.class": "io.confluent.connect.s3.format.json.JsonFormat"
-    "flush.size": "10"
+    "flush.size": "6000"
     "schema.compatibility": "NONE"
     "topics": var.kafka_topics[count.index]
     "tasks.max": "2"
