@@ -45,7 +45,7 @@ create_table_queries = [
             """
                 CREATE TABLE order_sales (
                     date TIMESTAMP,
-                    amount INT
+                    amount BIGINT
                 ) 
             """,
             """
