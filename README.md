@@ -40,7 +40,7 @@
     * User 데이터의 gender, address와 Order 데이터의 category 등은 랜덤하게 생성이 되지만 특정 비율을 가진다.
         * 예를 들면 생성되는 User 데이터의 gender 비율은 남녀가 6대4다.
         * 이렇게 랜덤하게 생성되는 비율을 각각의 파이프라인 끝에서 BI Tool로 직접 확인할 수 있다.
-    * 아래는 시뮬레이션 데이터의 ERD
+    * 아래는 시뮬레이션 데이터의 ERD  
         ![erd](./imgs/erd.jpg)
 <br/><br/>
 
